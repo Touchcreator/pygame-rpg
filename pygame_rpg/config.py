@@ -1,0 +1,5 @@
+TILESIZE = 16
+TILES_PATH = "assets/img/tiles.png"
+
+SCREEN_WIDTH = 160
+SCREEN_HEIGHT = 120
