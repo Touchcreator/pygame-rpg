@@ -22,7 +22,7 @@ key_down_before = False
 class Player(Entity):
 
     def __init__(self, x, y, img_path):
-        super().__init__(x, y, "assets/img/nutv2.png")
+        super().__init__(x, y, img_path)
         self.speed = 1
 
         self.col_box_x = 3
@@ -38,7 +38,7 @@ class Player(Entity):
 
 
     def update(self, event, screen: pygame.Surface, tiles_list):
-        global key_down, key_down_before
+        global key_down, key_down_before, new
 
         if self.frame_count % 5 == 0:
             self.frame += 1
@@ -146,8 +146,6 @@ class Player(Entity):
         new = self.img.subsurface(column * 16, row * 16, 16, 16)
         
 
-        screen.blit(new, (-8 + SCREEN_WIDTH / 2, -8 + SCREEN_HEIGHT / 2))
-
     def update_box_pos(self):
         global box_y, box_x
         box_x = self.x + self.col_box_x
@@ -156,4 +154,8 @@ class Player(Entity):
     def set_direction(self, direction):
         if self.direction != direction:
             self.direction = direction
+
+    def draw(self, screen):
+        global new
+        screen.blit(new, (-8 + SCREEN_WIDTH / 2, -8 + SCREEN_HEIGHT / 2))
             

@@ -10,3 +10,7 @@ class Tile(Entity):
 
         self.img = self.img.subsurface(img_x, img_y, 16, 16)
 
+    def update(self, event, screen, camera):
+        super().update(event, screen, camera)
+        self.draw(screen)
+

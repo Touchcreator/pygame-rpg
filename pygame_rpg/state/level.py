@@ -41,7 +41,7 @@ class Level(State):
             if tiles.collidable:
                 self.collidable_tiles.append(tiles)
 
-        self.test = Entity(0, 0, "assets/img/nutstill.png")
+        self.test = Entity(7 * TILESIZE, 9 * TILESIZE, "assets/img/nutstill.png")
 
         self.player = Player(TILESIZE * 6, TILESIZE * 7, NUT_ASSETS)
         
@@ -56,9 +56,18 @@ class Level(State):
 
         for tile in self.tiles_obj:
             tile.update(event, screen, (self.player.x, self.player.y))
+            
 
         self.test.update(event, screen, (self.player.x, self.player.y))
         self.player.update(event, screen, self.collidable_tiles)
+
+        # ordered drawing
+        sprites = [self.test, self.player]
+
+        sprites.sort(key=lambda y: y.y)
+
+        for sprite in sprites:
+            sprite.draw(screen)
 
         if self.player.x > 200 and not self.changed_scene:
             state_machine.set_state("blue")
