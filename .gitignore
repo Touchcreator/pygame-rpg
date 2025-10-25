@@ -7,4 +7,5 @@ build/
 dist/
 
 # game related
+
 settings.json
