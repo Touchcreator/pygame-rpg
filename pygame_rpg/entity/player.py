@@ -11,9 +11,10 @@ box_y = 0
 
 # WARNING!!!
 # i spent hours on the collision code; its ass.
-# idek if god knows how these collisions work
+# it works but i had to come up w crazy shortcuts bro
 # its held together by paper clips
-# have fun! :3
+# like it looks simple but as soon as u change one thing, it all messes up
+# anyway, have fun! :3
 
 class Player(Entity):
 

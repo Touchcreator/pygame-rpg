@@ -1,7 +1,7 @@
 TILESIZE = 16
 
 # DEBUG
-DEBUG_IMG_ON = True
+DEBUG_IMG_ON = False
 
 
 

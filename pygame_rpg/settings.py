@@ -1,7 +1,7 @@
 import json
 
 default_settings = {
-    "scale": 2,
+    "scale": 5,
     "name": "player"
 }
 
@@ -17,5 +17,5 @@ class Settings:
 
             with open("settings.json", "w") as s:
                 json.dump(default_settings, s)
-                self.data = json.load(s)
+                self.data = default_settings
             
