@@ -16,5 +16,9 @@ class Entity:
 
         # draw code here
 
-        screen.blit(self.img, (self.x - camera[0] -8 + SCREEN_WIDTH / 2, self.y - camera[1] -8 + SCREEN_HEIGHT / 2))
+        displayx = self.x - camera[0] -8 + SCREEN_WIDTH / 2
+        displayy = self.y - camera[1] -8 + SCREEN_HEIGHT / 2
+
+        if (displayx >= -16 and displayx <= SCREEN_WIDTH) and (displayy >= -16 and displayy <= SCREEN_HEIGHT):
+            screen.blit(self.img, (displayx, displayy))
 

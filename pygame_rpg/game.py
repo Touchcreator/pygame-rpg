@@ -45,11 +45,12 @@ class Game:
         j = 0
         while i < len(tiles):
             while j < len(tiles[1]):
-                to_append = Tile(j * TILESIZE, i * TILESIZE, TILES_PATH, int(tiles[i][j]) * 16, 0, False)
+                collidable = False
+                if tiles[i][j] == "1":
+                    collidable = True
 
-                if tiles[i][j] == 1:
-                    to_append.collidable = True
-                    self.collidable_tiles.append(to_append)
+
+                to_append = Tile(j * TILESIZE, i * TILESIZE, TILES_PATH, int(tiles[i][j]) * 16, 0, collidable)
 
                 self.tiles_obj.append(to_append)
                 j += 1
@@ -57,12 +58,13 @@ class Game:
             i += 1
             j = 0
 
-            
-
+        for tiles in self.tiles_obj:
+            if tiles.collidable:
+                self.collidable_tiles.append(tiles)
 
         self.test = Entity(0, 0, "assets/img/nutstill.png")
 
-        self.player = Player(0, 0, "assets/img/nutstill.png")
+        self.player = Player(TILESIZE * 6, TILESIZE * 7, NUT_ASSETS)
         
         running = True
 

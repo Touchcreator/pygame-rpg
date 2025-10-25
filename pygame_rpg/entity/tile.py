@@ -6,5 +6,7 @@ class Tile(Entity):
     def __init__(self, x, y, img_path, img_x, img_y, collidable):
         super().__init__(x, y, img_path)
 
+        self.collidable = collidable
+
         self.img = self.img.subsurface(img_x, img_y, 16, 16)
 
