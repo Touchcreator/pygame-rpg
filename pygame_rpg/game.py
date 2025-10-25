@@ -7,15 +7,22 @@ from .entity import *
 from .settings import Settings
 from .map_loader import MapLoader
 
+from .state import *
+
+
+
 class Game:
 
     def __init__(self):
+        
+        
 
         # set up settings
         self.settings = Settings()
         scale = self.settings.data["scale"]
 
         pygame.init()
+        pygame.freetype.init() #initalizing fonts for stuff
         game_size = width, height = SCREEN_WIDTH, SCREEN_HEIGHT
         self.window_size = width, height = round(160 * scale), round(120 * scale) # this will be based on ur settings, gotta add an editor tho
 
@@ -26,72 +33,30 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
+        # initialize state AFTER all pygame setup
+        self.state_machine = StateMachine("level")
+        
+
         
 
     def run(self):
-
-        tiles = MapLoader.load("assets/maps/map1.txt")
-        self.tiles_obj = []
-        self.collidable_tiles = []
-
-
-        # TODO: make a list of entities like most games
-
-        # make all tiles (soon ill add clipping
-        tilex = 0
-        tiley = 0
-
-        i = 0
-        j = 0
-        while i < len(tiles):
-            while j < len(tiles[1]):
-                collidable = False
-                if tiles[i][j] == "1":
-                    collidable = True
-
-
-                to_append = Tile(j * TILESIZE, i * TILESIZE, TILES_PATH, int(tiles[i][j]) * 16, 0, collidable)
-
-                self.tiles_obj.append(to_append)
-                j += 1
-
-            i += 1
-            j = 0
-
-        for tiles in self.tiles_obj:
-            if tiles.collidable:
-                self.collidable_tiles.append(tiles)
-
-        self.test = Entity(0, 0, "assets/img/nutstill.png")
-
-        self.player = Player(TILESIZE * 6, TILESIZE * 7, NUT_ASSETS)
-        
         running = True
+        
 
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # if it quits running is false
                     running = False
 
+            self.clock.tick(FRAMES_PER_SECOND)
+
             self.update(event) # pass events into running which should be passed into objects n stuff
 
-            self.clock.tick(30)
+            
 
     def update(self, event):
         
-        # draw a background
-        self.screen.fill(pygame.Color(100, 100, 255, 255))
-
-
-        # do stuff here
-
-        for tile in self.tiles_obj:
-            tile.update(event, self.screen, (self.player.x, self.player.y))
-
-        self.test.update(event, self.screen, (self.player.x, self.player.y))
-        self.player.update(event, self.screen, self.collidable_tiles)
-            
-        
+        self.state_machine.get_state().update(event, self.screen, self.state_machine)
 
         pygame.display.update()
 
