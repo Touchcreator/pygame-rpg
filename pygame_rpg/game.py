@@ -1,4 +1,5 @@
 import pygame
+import pygame.freetype
 
 from .config import *
 
@@ -42,6 +43,10 @@ class Game:
     def run(self):
         running = True
         
+        self.my_font = pygame.freetype.Font(os.path.join("assets", "fonts", "medodica.regular.otf"), 16)
+
+        self.my_font.antialiased = False
+            
 
         while running:
             for event in pygame.event.get():
@@ -58,12 +63,21 @@ class Game:
         
         self.state_machine.get_state().update(event, self.screen, self.state_machine)
 
+        if DEBUG_COORDS:
+            # debug stuff
+            
+            coords = f"X: {self.state_machine.states["level"].player.x}, Y: {self.state_machine.states["level"].player.y}"
+
+            self.my_font.render_to(self.screen, (0,0), coords, (255, 255, 255))
+
         pygame.display.update()
 
         # scale n display
         scaled_surface = pygame.transform.scale(self.screen, self.window_size)
 
         self.window.blit(scaled_surface, (0, 0))
+
+        
 
 
 

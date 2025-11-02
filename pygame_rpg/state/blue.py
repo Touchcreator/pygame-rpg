@@ -1,4 +1,5 @@
 # testing state changes
+import os
 
 import pygame
 import pygame.freetype
@@ -19,7 +20,7 @@ class Blue(State):
         if self.count >= 3 * FRAMES_PER_SECOND:
             state_machine.set_state("level")
 
-        my_font = pygame.freetype.Font("assets/fonts/medodica.regular.otf", 20)
+        my_font = pygame.freetype.Font(os.path.join("assets", "fonts", "medodica.regular.otf"), 20)
 
         my_font.antialiased = False
         

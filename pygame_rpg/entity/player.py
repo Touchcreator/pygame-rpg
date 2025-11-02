@@ -59,6 +59,11 @@ class Player(Entity):
 
         key_down_before = key_down
 
+        if keys[pygame.K_x]:
+            self.speed = 2
+        else:
+            self.speed = 1
+
         # update code here
         if keys[pygame.K_UP]:
             key_down = True
@@ -157,5 +162,9 @@ class Player(Entity):
 
     def draw(self, screen):
         global new
-        screen.blit(new, (-8 + SCREEN_WIDTH / 2, -8 + SCREEN_HEIGHT / 2))
+        if self.speed == 2:
+            
+            screen.blit(new, (-8 + SCREEN_WIDTH / 2, -8 + SCREEN_HEIGHT / 2 - self.frame % 2))
+        else:
+            screen.blit(new, (-8 + SCREEN_WIDTH / 2, -8 + SCREEN_HEIGHT / 2))
             

@@ -1,3 +1,5 @@
+import os
+
 import pygame
 
 from ..map_loader import MapLoader
@@ -8,7 +10,7 @@ from .state import State
 
 class Level(State):
     def __init__(self):
-        tiles = MapLoader.load("assets/maps/map1.txt")
+        tiles = MapLoader.load(os.path.join("assets", "maps", "map1.txt"))
         self.tiles_obj = []
         self.collidable_tiles = []
         self.changed_scene = False
@@ -41,7 +43,7 @@ class Level(State):
             if tiles.collidable:
                 self.collidable_tiles.append(tiles)
 
-        self.test = Entity(7 * TILESIZE, 9 * TILESIZE, "assets/img/nutstill.png")
+        self.test = Entity(7 * TILESIZE, 9 * TILESIZE, os.path.join("assets", "img", "nutstill.png"))
 
         self.player = Player(TILESIZE * 6, TILESIZE * 7, NUT_ASSETS)
         
@@ -70,8 +72,10 @@ class Level(State):
             sprite.draw(screen)
 
         if self.player.x > 200 and not self.changed_scene:
-            state_machine.set_state("blue")
+            state_machine.set_state("battle")
             self.changed_scene = True
+
+        
             
 
     def restart(self):
